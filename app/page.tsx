@@ -9,10 +9,13 @@ export default function Home() {
   useEffect(() => {
     const links = document.querySelectorAll("a[href^='#']");
     links.forEach(link => {
-      link.addEventListener("click", function (e: any) {
+      link.addEventListener("click", (e: Event) => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute("href"));
-        target?.scrollIntoView({ behavior: "smooth" });
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute("href");
+        if (href) {
+          const target = document.querySelector(href);
+          target?.scrollIntoView({ behavior: "smooth" });
+        }
       });
     });
   }, []);
@@ -79,7 +82,7 @@ export default function Home() {
       <main>
 
         {/* HERO SECTION */}
-        <section className="bg-black text-white py-24 px-6">
+        <section className="bg-black text-white py-24 px-6 scroll-mt-24">
           <div className="max-w-5xl mx-auto text-center">
 
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -101,7 +104,7 @@ export default function Home() {
 
 
         {/* ABOUT */}
-        <section id="about" className="py-20 px-6">
+        <section id="about" className="py-20 px-6 scroll-mt-24">
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 
             {/* TEXT */}
@@ -140,7 +143,7 @@ export default function Home() {
 
 
         {/* SERVICES */}
-        <section id="services" className="bg-gray-50 py-20 px-6">
+        <section id="services" className="bg-gray-50 py-20 px-6 scroll-mt-24">
           <div className="max-w-6xl mx-auto">
 
             <h2 className="text-3xl font-bold text-center mb-12">
@@ -184,7 +187,7 @@ export default function Home() {
 
 
         {/* COMMUNITY */}
-        <section id="community" className="py-20 px-6 bg-gray-50">
+        <section id="community" className="py-20 px-6 bg-gray-50 scroll-mt-24">
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 
             {/* IMAGE */}
@@ -222,7 +225,7 @@ export default function Home() {
 
 
         {/* CONTACT */}
-        <section id="contact" className="bg-black text-white py-20 px-6">
+        <section id="contact" className="bg-black text-white py-20 px-6 scroll-mt-24">
           <div className="max-w-3xl mx-auto">
 
             <h2 className="text-3xl font-bold text-center mb-10">
