@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const links = document.querySelectorAll("a[href^='#']");
@@ -21,7 +22,8 @@ export default function Home() {
 
       {/* NAVBAR */}
       <header className="sticky top-0 bg-white border-b border-gray-200 z-50">
-        <nav className="max-w-6xl mx-auto flex justify-between items-center p-4">
+        <nav className="max-w-6xl mx-auto flex justify-between items-center p-4 relative">
+          
 
         <div className="w-40 h-15 relative">
   <Image
@@ -31,12 +33,44 @@ export default function Home() {
     className="object-contain"
   />
 </div>
-
-          <div className="flex gap-6 text-sm font-medium">
+ <button
+            className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+          <div className={`md:block hidden flex gap-6 text-sm font-medium ${mobileMenuOpen ? 'hidden' : 'md:flex'}`}>
             <a href="#about" className="hover:text-orange-500">About</a>
             <a href="#services" className="hover:text-orange-500">Services</a>
             <a href="#community" className="hover:text-orange-500">Community</a>
             <a href="#contact" className="hover:text-orange-500">Contact</a>
+          </div>
+          
+          <div className={`absolute right-0 top-5 md:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`}>
+            <div className="bg-white rounded-lg shadow-lg p-4">
+              <button
+                className="absolute top-2 right-2 p-2 rounded text-gray-600 hover:bg-gray-100"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <div className="flex flex-col gap-3">
+                <a href="#about" className="hover:text-orange-500">About</a>
+                <a href="#services" className="hover:text-orange-500">Services</a>
+                <a href="#community" className="hover:text-orange-500">Community</a>
+                <a href="#contact" className="hover:text-orange-500">Contact</a>
+              </div>
+            </div>
           </div>
 
         </nav>
@@ -200,18 +234,18 @@ export default function Home() {
               <input
                 type="text"
                 placeholder="Name"
-                className="w-full p-3 rounded text-black"
+                className="w-full p-3 rounded text-white border border-white"
               />
 
               <input
                 type="email"
                 placeholder="Email"
-                className="w-full p-3 rounded text-black"
+                className="w-full p-3 rounded text-white border border-white"
               />
 
               <textarea
                 placeholder="Message"
-                className="w-full p-3 rounded text-black"
+                className="w-full p-3 rounded text-white border border-white"
                 rows={4}
               ></textarea>
 
